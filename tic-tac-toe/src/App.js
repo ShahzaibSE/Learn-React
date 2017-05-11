@@ -18,6 +18,26 @@ import './App.css';
 //   }
 // }
 
+// class Square extends Component{
+//
+//     constructor(){
+//         super();
+//
+//         //States , these states are private to it's component
+//         this.state = {
+//             value : null
+//         }
+//     }
+//
+//     render(){
+//         return(
+//             <button className="square" onClick={() => this.setState({value: 'X'})}>
+//                 {this.state.value}
+//             </button>
+//         )
+//     }
+// }
+
 class Square extends Component{
 
     constructor(){
@@ -31,17 +51,45 @@ class Square extends Component{
 
     render(){
         return(
-            <button className="square" onClick={() => this.setState({value: 'X'})}>
-                {this.state.value}
+            <button className="square" onClick={() => this.props.onClick()}>
+                {this.props.value}
             </button>
         )
     }
 }
 
 class Board extends React.Component {
-    renderSquare(i) {
-        return <Square />;
+
+    constructor(){
+        super();
+        // this.state.squares = Array(9).fill(null);
+
+        this.state = {
+            squares : Array(9).fill(null)
+        }
     }
+
+    // renderSquare(i) {
+    //     return <Square />;
+    // }
+
+    handleClick(i) {
+        // console.log("Square counter:"+" "+i.toString());
+        console.log(i);
+        const squares = this.state.squares.slice();
+        squares[i] = 'X';
+        this.setState({squares: squares});
+    }
+
+    renderSquare(i) {
+        return (
+            <Square
+                value={this.state.squares[i]}
+                onClick={() => this.handleClick(i)}
+            />
+        );
+    }
+
     render() {
         const status = 'Next player: X';
         return (
@@ -89,6 +137,7 @@ class Test extends React.Component{
             <form>
              <label>Enter Value:</label>
                 <input type='text' onChange={()=>this.setState({someValue:document.getElementById('field').value})} id="field"></input>
+                {/*<input type='text' onChange={this.getValue()} id="field"></input>*/}
                 <br/>
                 <p>{this.state.someValue}</p>
             </form>
