@@ -6,7 +6,7 @@ const todoDetail = ({todo}) => {  // Destructuring incoming object.
     return (
         <div>
             <h1>{todo.id}</h1>
-            <h1>{todo.name}</h1>
+            <h3>{todo.name}</h3>
         </div>
     );  
 } 
