@@ -1,25 +1,53 @@
-// 'use strict'
-
 import React from 'react';
 import { Router, Route, Link } from 'react-dom';
+import { Alert } from 'reactstrap';
 
 class AddToDoComponent extends React.Component {
-    todos_list = [];
-    state = {
-        name: {},
-        todos: []
-    };
+    todos_arr = [];
+
+    constructor() {
+        super();
+        this.state = {
+            // id : '',
+            // name : ''
+            todos : []
+        };
+        this.handleChange = this.handleChange.bind(this);
+    }
 
     componentWillMount() {
         if (this.todos_list.length > 0) {
             console.log('You have todos!');
+        }else {
+            console.log('No todos found.');
         }
     }
 
-    addToDo(your_todo) {
-        this.todos_list.push(your_todo);
+    handleChange(event) {
+        let todo =  { id: Math.floor((Math.random() * 100) +  1), name: event.target.name}; 
+        if (todo.id && todo.name) {
+            this.todos_arr.push(todo);
+            <Alert class="success">
+              Todo successfully added
+            </Alert>
+        } else if (!todo.id) {
+            <Alert color="danger">
+               ID is missing!
+            </Alert>
+        }else if (!todo.name) {
+            <Alert color="danger">
+               Please enter name of your todo!
+            </Alert>
+        }
+        // this.setState({
+        //     todos : this.todos_arr
+        // });
+    }
+
+    addToDo() {
+        alert(`Submitted todos : ${this.todo_arr}`);
         this.setState({
-            todos : this.todos_list 
+            todos : this.todos_arr
         });
     }
 
@@ -28,10 +56,11 @@ class AddToDoComponent extends React.Component {
             <div>
                 <h1>Add Component</h1>
                 <form>
-                    <label idName="name"></label>
-                    <input type="text" idName="name" placeholder="Enter todo name" value={this.state.name}/><br/> 
-                    <input type="submit" value="Submit" onClick = {this.addToDo({id: Math.floor(Math.random() * 100) + 1, name: this.state.name})}/>
+                    <label htmlFor="name"></label>
+                    <input type="text" id="name" name="name" placeholder="Enter your todo" value={this.state.name} onChange={this.handleChange}/><br/> 
+                    <input type="submit" value="Submit" />
                 </form>
+                {/* <h1>{this.state.name}</h1> */}
             </div>
         );
     }

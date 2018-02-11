@@ -8,10 +8,9 @@ import ListToDoComponent  from './components/list-todo/list-todo.component';
 
 class App extends Component {
   render() {
-    return ([
-      <AddToDoComponent></AddToDoComponent>,
-      <ListToDoComponent></ListToDoComponent>,
-    ]);
+    return (
+      <AddToDoComponent></AddToDoComponent>
+    );
   }
 }
 
