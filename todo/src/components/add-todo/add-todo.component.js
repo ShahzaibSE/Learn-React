@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router, Route, Link } from 'react-dom';
+// import { BrowserRouter as Router, Route, Link } from "react-dom";
 import { Alert } from 'reactstrap';
 
 class AddToDoComponent extends React.Component {
