@@ -45,7 +45,8 @@ class AddToDoComponent extends React.Component {
     }
 
     addToDo() {
-        alert(`Submitted todos : ${this.todo_arr}`);
+        // alert(`Submitted todos : ${this.todo_arr}`);
+        console.log(`Submitted todos : ${this.todo_arr}`);
         this.setState({
             todos : this.todos_arr
         });
