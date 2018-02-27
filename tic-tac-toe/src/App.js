@@ -44,9 +44,9 @@ class Square extends Component{
         super();
 
         //States , these states are private to it's component
-        this.state = {
-            value : null
-        }
+        // thiss.state = {
+        //     value : null
+        // }
     }
 
     render(){
@@ -65,7 +65,8 @@ class Board extends React.Component {
         // this.state.squares = Array(9).fill(null);
 
         this.state = {
-            squares : Array(9).fill(null)
+            squares : Array(9).fill(null),
+            isNext:true
         }
     }
 
@@ -74,11 +75,13 @@ class Board extends React.Component {
     // }
 
     handleClick(i) {
-        // console.log("Square counter:"+" "+i.toString());
-        console.log(i);
         const squares = this.state.squares.slice();
-        squares[i] = 'X';
-        this.setState({squares: squares});
+        squares[i] = this.state.xIsNext ? 'X' : 'O';
+        this.setState({
+            squares: squares,
+            xIsNext: !this.state.xIsNext,
+        });
+
     }
 
     renderSquare(i) {
@@ -91,7 +94,8 @@ class Board extends React.Component {
     }
 
     render() {
-        const status = 'Next player: X';
+        // const status = 'Next player: X';
+        const status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
         return (
             <div>
                 <div className="status">{status}</div>
