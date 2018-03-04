@@ -15,6 +15,18 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
+// Mongodb Connection activation and Check.
+// mongoose.connect('mongodb://localhost/TodoDB');  // Localhost connection.
+mongoose.connect('mongodb://shahzaibTest:123@ds135689.mlab.com:35689/todo'); // Cloud service (mLab Connection)
+// ******* If success ******** //
+mongoose.connection.on('conencted', function successEventResp() {
+  console.log('Connection running');
+})
+mongoose.connection.on('error', function errorEventResp() {
+  console.log('Error occured while running');
+})
+
+
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
