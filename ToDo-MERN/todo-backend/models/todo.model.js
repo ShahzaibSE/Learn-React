@@ -7,8 +7,8 @@ exports.models = {
     ToDo : function() {
         let schema = mongoose.Schema({
             name: String,
-            createdAt : new Date().getTime(),
-            updatedAt : new Date().getTime(),
+            createdAt : Date,
+            updatedAt : Date,
         }); 
     
         return mongoose.model('todos', schema);

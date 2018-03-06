@@ -1,7 +1,3 @@
-import { error } from 'util';
-
-'use strict'
-
 const mongoose = require('mongoose');
 const ToDo = require('./dbInjector').dataModels.todoModel;
 
@@ -20,7 +16,8 @@ exports.add = function (req, res) {
         } else {
             // New Todo.
             let insertObj = {
-                name : body.name
+                name : body.name,
+                createdAt : new Date().getTime()
             };
             let newTodo = new ToDo(insertObj);
             newTodo.save(newTodo, function newReceordCheck(err, data) {
@@ -37,7 +34,8 @@ exports.add = function (req, res) {
 exports.update = function (req,res) {
     let body = req.body; // request params.
     let urlParams = req.params // Url params.
-    Todo.update({_id: urlParams._id}, {$set : { name : body.name }})
+    let update =  {name : body.name, updatedAt: new Date().getTime() }
+    Todo.update({_id: urlParams._id}, {$set : update})
         .exec(function updateTodo(err, data) {
             if (err) {
                 res.send(error_response.update);
