@@ -1,0 +1,10 @@
+const mongoose = require('mongoose');
+const todoController = require('./../controllers/todo.controller');
+const router = require('express').Router();
+
+router.get('/add',todoController.add);
+router.put('/update/:id',todoController.update);
+router.get('/list',todoController.selectall);
+router.delete('/delete',todoController.delete);
+
+module.exports = router;
