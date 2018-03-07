@@ -7,8 +7,10 @@ const error_response = require('./../response/error.response');
 
 // CRUD.
 exports.add = function (req, res) {
-    let body = req.body; // request params.
-    Todo.findOne({ name: body.name }).exec( function checkTodo(err, data) {
+    let body = req.body; // request params. 
+    console.log('Request params');
+    console.log(body);
+    ToDo.findOne({ name: body.name }).exec( function checkTodo(err, data) {
         if (err) {
             res.send(error_response.select);
         } else if (data) {
@@ -35,7 +37,7 @@ exports.update = function (req,res) {
     let body = req.body; // request params.
     let urlParams = req.params // Url params.
     let update =  {name : body.name, updatedAt: new Date().getTime() }
-    Todo.update({_id: urlParams._id}, {$set : update})
+    ToDo.update({_id: urlParams.id}, {$set : update})
         .exec(function updateTodo(err, data) {
             if (err) {
                 res.send(error_response.update);
@@ -48,7 +50,7 @@ exports.update = function (req,res) {
 exports.delete = function (req,res) {
     let body = req.body;
     let urlParams = req.params;
-    Todo.remove({_id: urlParams._id}).exec(function removeResponse(err, data) {
+    ToDo.remove({_id: urlParams._id}).exec(function removeResponse(err, data) {
         if (err) {
             res.send(error_response.delete);
         } else if (data) {
@@ -58,7 +60,7 @@ exports.delete = function (req,res) {
 }
 
 exports.selectall = function (req,res) {
-    Todo.find({}).exec(function datalist(err, data) {
+    ToDo.find({}).exec(function datalist(err, data) {
         if (err) {
             res.send(error_response.select);
         }else if (data) {
@@ -66,4 +68,21 @@ exports.selectall = function (req,res) {
             res.send(success_response.select);
         }
     });
+}
+
+exports.test  = function (req,res) {
+    let test = {
+        name : req.body.name
+    }
+    console.log('Test entry');
+    console.log(test);
+    let newDocument = new ToDo(test);
+    newDocument.save(function testResponse(err,data) {
+        res.send({
+            status : true,
+            resCode : 200,
+            isError: false,
+            message  : "Test response"
+        });
+    })
 }
